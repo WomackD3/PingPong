@@ -29,7 +29,7 @@ class Paddle:
         if up:
             self.y -= self.VEL
         else:
-            self.y -= self.VEL
+            self.y += self.VEL
 
 
 def draw(win, paddles):
@@ -39,6 +39,18 @@ def draw(win, paddles):
         paddle.draw(win)
 
     pygame.display.update()
+
+def handle_paddle_movement(keys, left_paddle, right_paddle):
+    if keys[pygame.K_w]:
+        left_paddle.move(up=True)
+    if keys[pygame.K_s]:
+        left_paddle.move(up=False)
+
+    if keys[pygame.K_UP]:
+        right_paddle.move(up=True)
+    if keys[pygame.K_DOWN]:
+        right_paddle.move(up=False)
+
 
 def main():
     run = True
@@ -56,7 +68,10 @@ def main():
                 run = False
                 break
 
-    pygame.quit
+        keys = pygame.key.get_pressed()
+        handle_paddle_movement(keys, left_paddle, right_paddle)
+
+    pygame.quit()  
 
 if __name__ == '__main__':
     main()
